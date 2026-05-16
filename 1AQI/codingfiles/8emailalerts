@@ -1,0 +1,213 @@
+# import smtplib
+# from email.mime.text import MIMEText
+# from email.mime.multipart import MIMEMultipart
+
+# # ====== Configuration ======
+# SENDER_EMAIL = "airpollutionpredictor024@gmail.com"
+# APP_PASSWORD = "mhkk qidt flrn ybpv"   # 16-digit Google App Password
+# RECEIVER_EMAIL = "jknehavardhini2004@gmail.com"
+
+
+# def send_email_alert(aqi_value, category):
+#     subject = f"⚠️ PolluCast Air Quality Alert – {category}"
+
+#     body = f"""
+# Hello,
+
+# This is an automated air quality alert from the PolluCast System.
+
+# 📍 Predicted Air Quality Index (AQI): {aqi_value:.2f}
+# 📊 AQI Category: {category}
+
+# Health Advisory:
+# """
+
+#     if category in ["Good", "Satisfactory"]:
+#         body += """
+# Air quality is acceptable.
+# No significant health risks. Enjoy your day 🌿
+# """
+#     elif category == "Moderate":
+#         body += """
+# Sensitive individuals may experience minor discomfort.
+# Consider limiting prolonged outdoor activities.
+# """
+#     elif category == "Poor":
+#         body += """
+# Breathing discomfort possible for people with lung or heart conditions.
+# Avoid outdoor exertion if possible.
+# """
+#     elif category == "Very Poor":
+#         body += """
+# High health risk for all individuals.
+# Strongly advised to stay indoors and use protective masks if outdoors.
+# """
+#     else:  # Severe
+#         body += """
+# Severe health risk for everyone.
+# Avoid outdoor exposure completely. Follow emergency health guidelines.
+# """
+
+#     body += """
+
+# Stay safe,
+# PolluCast – Live Air Pollution Predictor with Health Alerts 🌍
+# """
+
+#     # Setup email
+#     msg = MIMEMultipart()
+#     msg["From"] = SENDER_EMAIL
+#     msg["To"] = RECEIVER_EMAIL
+#     msg["Subject"] = subject
+#     msg.attach(MIMEText(body, "plain"))
+
+#     try:
+#         server = smtplib.SMTP("smtp.gmail.com", 587)
+#         server.starttls()
+#         server.login(SENDER_EMAIL, APP_PASSWORD)
+#         server.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, msg.as_string())
+#         server.quit()
+#         print(f"✅ PolluCast alert email sent to {RECEIVER_EMAIL}")
+#     except Exception as e:
+#         print(f"❌ Failed to send email: {e}")
+
+
+# # ====== Example Usage ======
+# if __name__ == "__main__":
+#     predicted_aqi = 246  # model output
+
+#     if predicted_aqi <= 50:
+#         category = "Good"
+#     elif predicted_aqi <= 100:
+#         category = "Satisfactory"
+#     elif predicted_aqi <= 200:
+#         category = "Moderate"
+#     elif predicted_aqi <= 300:
+#         category = "Poor"
+#     elif predicted_aqi <= 400:
+#         category = "Very Poor"
+#     else:
+#         category = "Severe"
+
+#     if predicted_aqi > 200:
+#         send_email_alert(predicted_aqi, category)
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# ====== EMAIL CONFIGURATION ======
+SENDER_EMAIL = "airpollutionpredictor024@gmail.com"
+APP_PASSWORD = "mhkk qidt flrn ybpv"   # Google App password
+
+# ====== MULTIPLE RECEIVERS ======
+RECEIVER_EMAILS = [
+    # "jknehavardhini2004@gmail.com",
+    # "24pcs004@loyolacollege.edu",
+    # "24pcs008@loyolacollege.edu",
+    # "24pcs010@loyolacollege.edu",
+    # "24pcs019@loyolacollege.edu",
+    "24pcs024@loyolacollege.edu"
+    # ,
+    # "25ucs101@loyolacollege.edu",
+    # "25ucs004@loyolacollege.edu",
+    # "25ucs006@loyolacollege.edu"
+    # "24pdj018@loyolacollege.edu",
+    # "24pcs025@loyolacollege.edu","justinsophia@loyolacollege.edu"
+
+]
+
+
+# ====== EMAIL ALERT FUNCTION ======
+def send_email_alert(aqi_value, category):
+    subject = f"⚠️ PolluCast Air Quality Alert – {category}"
+
+    body = f"""
+Hello,
+
+This is an automated air quality alert from the PolluCast System.
+
+📍 Predicted AQI: {aqi_value:.2f}
+📊 AQI Category: {category}
+
+Health Advisory:
+"""
+
+    if category in ["Good", "Satisfactory"]:
+        body += """
+Air quality is acceptable.
+No significant health risks. Enjoy your day 🌿
+"""
+    elif category == "Moderate":
+        body += """
+Sensitive individuals may experience minor discomfort.
+Limit prolonged outdoor activities.
+"""
+    elif category == "Poor":
+        body += """
+Breathing discomfort possible for people with lung or heart conditions.
+Avoid outdoor exertion.
+"""
+    elif category == "Very Poor":
+        body += """
+High health risk for all individuals.
+Stay indoors and wear mask if going outside.
+"""
+    else:  # Severe
+        body += """
+Severe health risk for everyone.
+Avoid outdoor exposure completely.
+"""
+
+    body += """
+
+Stay safe,
+PolluCast – Live Air Pollution Predictor 🌍
+"""
+
+    # ====== EMAIL SETUP ======
+    msg = MIMEMultipart()
+    msg["From"] = SENDER_EMAIL
+    msg["To"] = ", ".join(RECEIVER_EMAILS)   # multiple users
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
+
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(SENDER_EMAIL, APP_PASSWORD)
+
+        # send to all users
+        server.sendmail(SENDER_EMAIL, RECEIVER_EMAILS, msg.as_string())
+        server.quit()
+
+        print("✅ PolluCast alert sent to all users successfully!")
+
+    except Exception as e:
+        print("❌ Email sending failed:", e)
+
+
+# ====== MAIN MODEL OUTPUT ======
+if __name__ == "__main__":
+
+    predicted_aqi = 246   # ← your ML model output
+
+    # AQI Category Logic
+    if predicted_aqi <= 50:
+        category = "Good"
+    elif predicted_aqi <= 100:
+        category = "Satisfactory"
+    elif predicted_aqi <= 200:
+        category = "Moderate"
+    elif predicted_aqi <= 300:
+        category = "Poor"
+    elif predicted_aqi <= 400:
+        category = "Very Poor"
+    else:
+        category = "Severe"
+
+    # Send alert only if AQI > 200
+    if predicted_aqi > 200:
+        send_email_alert(predicted_aqi, category)
+    else:
+        print("AQI Normal 👍 — No alert sent")
