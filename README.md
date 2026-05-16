@@ -1,6 +1,6 @@
 # PolluCast — Air Pollution Predictor with Real-Time Health Alerts
 
-<img width="480" height="270" alt="a-0240" src="https://github.com/user-attachments/assets/23f369ca-4ffc-4de8-9274-5585b363347b" />
+<img width="1448" height="1086" alt="ChatGPT Image May 16, 2026, 06_18_46 PM" src="https://github.com/user-attachments/assets/3a60a290-75eb-4ed6-a771-788245bfd4b7" />
 
 
 > An end-to-end IoT + Machine Learning system that monitors air quality, predicts AQI, and delivers real-time health alerts via SMS, WhatsApp, and Email.
