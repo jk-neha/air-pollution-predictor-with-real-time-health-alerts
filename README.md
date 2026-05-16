@@ -236,7 +236,7 @@ A `.env.example` template is provided with placeholder values. Never share your 
 
 ## Author
 
-**Neha**  
+**Neha Vardhini J K**  
 M.Sc. Computer Science — Loyola College, Chennai  
 [GitHub](https://github.com/jk-neha)
 
